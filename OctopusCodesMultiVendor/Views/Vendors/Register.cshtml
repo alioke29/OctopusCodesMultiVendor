@@ -1,11 +1,10 @@
-﻿
+@using CaptchaMvc.HtmlHelpers;
+
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-
 @model OctopusCodesMultiVendor.Models.Vendor
-
 <ul class="breadcrumb">
     <li><a href="@Url.Action("Index", "Home")">@Resources.UserTemplate.Home</a> <span class="divider">/</span></li>
     <li class="active">@Resources.Vendor.Vendor_Register</li>
@@ -13,128 +12,126 @@
 <h3>@Resources.Vendor.Vendor_Information</h3>
 <hr class="soft">
 @using (Html.BeginForm("Register", "Vendors", FormMethod.Post, new { @class = "form-inline", enctype = "multipart/form-data" }))
-{ 
-<fieldset>
-    @TempData["message"]
-
-    <div class="control-group">
-        <label class="control-label" for="textarea">@(Resources.Vendor.Username)*</label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.Username, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Username })
-            <br />
-            @Html.ValidationMessageFor(model => model.Username)
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="password">@(Resources.Vendor.Password)*</label>
-        <div class="controls">
-            @Html.PasswordFor(model => model.Password, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Password_validate_message, title = Resources.Vendor.Password_validate_message })
-            <br />
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="textarea">@(Resources.Vendor.Name)*</label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.Name, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Name })
-            <br />
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-    </div>
-
-
-    Address:
-    <div class="control-group">
-        <label class="control-label">
-            Line Address 1
-        </label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.defaultAddress.LineAddress1, new { @class = "input-xxlarge", required = "required", placeholder = "Address Line 1" })
-            @Html.ValidationMessageFor(model => model.defaultAddress.LineAddress1)
-        </div>
-    </div>
-
-
-
-    <div class="control-group">
-        <label class="control-label">
-            Line Address 2
-        </label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.defaultAddress.LineAddress2, new { @class = "input-xxlarge", required = "required", placeholder = "Address Line 2" })
-            @Html.ValidationMessageFor(model => model.defaultAddress.LineAddress2)
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label">
-            City
-        </label>
-        <div class="controls">
-            <select name="defaultAddress.City">
-                @foreach (var city in ViewBag.cities)
-                {
-                    string selectedCity = "";
-                    if (Model.defaultAddress != null)
-                    {
-                        selectedCity = Model.defaultAddress.City;
-                    }
-                    if (selectedCity == city)
-                    {
-                        <option value="@city" selected>@city</option>
-                    }
-                    else
-                    {
-                        <option value="@city">@city</option>
-
-                    }
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label">
-            Zip Code
-        </label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.defaultAddress.ZipCode, new { @class = "input-xxlarge", required = "required", placeholder = "Zip Code" })
-            @Html.ValidationMessageFor(model => model.defaultAddress.ZipCode)
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="textarea">@(Resources.Vendor.Email)*</label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.Email, new { @class = "input-xxlarge", required = "required", placeholder = "Email", type = Resources.Vendor.Email })
-            <br />
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="textarea">@(Resources.Vendor.Phone)</label>
-        <div class="controls">
-            @Html.TextBoxFor(model => model.Phone, new { @class = "input-xxlarge", placeholder = Resources.Vendor.Phone, type = "text" })
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="textarea">@(Resources.Vendor.Logo)</label>
-        <div class="controls">
-            <input type="file" name="logo" accept="image/*" />
-            @if (ViewBag.errorPhoto != null)
-            {
+{
+    <fieldset>
+        @TempData["message"]
+        <div class="control-group">
+            <label class="control-label" for="textarea">@(Resources.Vendor.Username)*</label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Username, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Username })
                 <br />
-                <span style="color: red">@ViewBag.errorPhoto</span>
-            }
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
         </div>
-    </div>
+        <div class="control-group">
+            <label class="control-label" for="password">@(Resources.Vendor.Password)*</label>
+            <div class="controls">
+                @Html.PasswordFor(model => model.Password, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Password_validate_message, title = Resources.Vendor.Password_validate_message })
+                <br />
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="textarea">@(Resources.Vendor.Name)*</label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Name, new { @class = "input-xxlarge", required = "required", placeholder = Resources.Vendor.Name })
+                <br />
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
 
-    <button type="submit" class="btn btn-primary">@(Resources.Vendor.Save)</button>
+        Address:
+        <div class="control-group">
+            <label class="control-label">
+                Line Address 1
+            </label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.defaultAddress.LineAddress1, new { @class = "input-xxlarge", required = "required", placeholder = "Address Line 1" })
+                @Html.ValidationMessageFor(model => model.defaultAddress.LineAddress1)
+            </div>
+        </div>
 
-</fieldset>
+        <div class="control-group">
+            <label class="control-label">
+                Line Address 2
+            </label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.defaultAddress.LineAddress2, new { @class = "input-xxlarge", required = "required", placeholder = "Address Line 2" })
+                @Html.ValidationMessageFor(model => model.defaultAddress.LineAddress2)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                City
+            </label>
+            <div class="controls">
+                <select name="defaultAddress.City">
+                    @foreach (var city in ViewBag.cities)
+                    {
+                        string selectedCity = "";
+                        if (Model.defaultAddress != null)
+                        {
+                            selectedCity = Model.defaultAddress.City;
+                        }
+                        if (selectedCity == city)
+                        {
+                            <option value="@city" selected>@city</option>
+                        }
+                        else
+                        {
+                            <option value="@city">@city</option>
+
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                Zip Code
+            </label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.defaultAddress.ZipCode, new { @class = "input-xxlarge", required = "required", placeholder = "Zip Code" })
+                @Html.ValidationMessageFor(model => model.defaultAddress.ZipCode)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="textarea">@(Resources.Vendor.Email)*</label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Email, new { @class = "input-xxlarge", required = "required", placeholder = "Email", type = Resources.Vendor.Email })
+                <br />
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="textarea">@(Resources.Vendor.Phone)</label>
+            <div class="controls">
+                @Html.TextBoxFor(model => model.Phone, new { @class = "input-xxlarge", placeholder = Resources.Vendor.Phone, type = "text" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="textarea">@(Resources.Vendor.Logo)</label>
+            <div class="controls">
+                <input type="file" name="logo" accept="image/*" />
+                @if (ViewBag.errorPhoto != null)
+                {
+                    <br />
+                    <span style="color: red">@ViewBag.errorPhoto</span>
+                }
+            </div>
+        </div>
+        <br />
+
+        <div class="control-group">
+            <label class="control-label" for="textarea">Captcha</label>
+            <div class="controls">
+                @Html.Captcha(refreshText: "", inputText: "Enter the text above", length: 4, requiredMessageText: "required", addValidationSpan: true)
+                <p style="color:red">@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">@(Resources.Vendor.Save)</button>
+    </fieldset>
 }
-
