@@ -1,4 +1,5 @@
-﻿
+@using CaptchaMvc.HtmlHelpers;
+
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
@@ -16,7 +17,6 @@
 {
 <fieldset>
     @TempData["message"]
-
     <div class="control-group">
         <label class="control-label" for="textarea">@(Resources.Customer.Username)*</label>
         <div class="controls">
@@ -25,7 +25,6 @@
             @Html.ValidationMessageFor(model => model.Username)
         </div>
     </div>
-
     <div class="control-group">
         <label class="control-label" for="password">@(Resources.Customer.Password)*</label>
         <div class="controls">
@@ -34,7 +33,6 @@
             @Html.ValidationMessageFor(model => model.Password)
         </div>
     </div>
-
     <div class="control-group">
         <label class="control-label" for="textarea">@(Resources.Customer.Full_Name)*</label>
         <div class="controls">
@@ -43,7 +41,6 @@
             @Html.ValidationMessageFor(model => model.FullName)
         </div>
     </div>
-
     Address:
     <div class="control-group">
         <label class="control-label">
@@ -55,8 +52,6 @@
         </div>
     </div>
 
-
-
     <div class="control-group">
         <label class="control-label">
             Line Address 2
@@ -66,7 +61,6 @@
             @Html.ValidationMessageFor(model => model.defaultAddress.LineAddress2)
         </div>
     </div>
-
     <div class="control-group">
         <label class="control-label">
             City
@@ -81,7 +75,8 @@
                         selectedCity = Model.defaultAddress.City;
                     }
                     if (selectedCity == city)
-                    {    <option value="@city" selected>@city</option>
+                    {
+                        <option value="@city" selected>@city</option>
                     }
                     else
                     {
@@ -90,10 +85,9 @@
                     }
                 }
             </select>
-           
+
         </div>
     </div>
-
     <div class="control-group">
         <label class="control-label">
             Zip Code
@@ -103,7 +97,6 @@
             @Html.ValidationMessageFor(model => model.defaultAddress.ZipCode)
         </div>
     </div>
-
     <div class="control-group">
         <label class="control-label" for="textarea">@(Resources.Customer.Email)*</label>
         <div class="controls">
@@ -120,8 +113,20 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">@Resources.Customer.Save</button>
+    <br />
 
+    <div class="control-group">
+        <label class="control-label" for="textarea">Captcha</label>
+        <div class="controls">
+            @Html.Captcha(refreshText:"", inputText:"Enter the text above",length:4, requiredMessageText:"required", addValidationSpan: true)
+            <p style="color:red">@ViewBag.ErrorMessage</p>            
+        </div>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-primary">@Resources.Customer.Save</button>
 </fieldset>
 }
+
 
